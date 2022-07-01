@@ -1,8 +1,10 @@
+import { escapar } from "../decorators/escapar.js";
 import { Negociacoes } from "../models/negociacoes.js";
 import { View } from "./view.js";
 
 export class NegociacoesView extends View<Negociacoes> {
 
+    @escapar
     protected template(model: Negociacoes): string {
         return `
         <table class="table table-hover table-bordered">
@@ -15,7 +17,7 @@ export class NegociacoesView extends View<Negociacoes> {
             </thead>
             <tbody>
                 ${model.lista().map(negociacao => {
-                    return `
+            return `
                         <tr>
                             <td>${this.formatar(negociacao.data)}</td>
                             <td>${negociacao.quantidade}</td>
@@ -23,13 +25,13 @@ export class NegociacoesView extends View<Negociacoes> {
                         </tr>
                         <script>alert('oi')</script>
                     `
-                }).join('')}
+        }).join('')}
             </tbody>
         </table>
         `;
     }
 
-    private formatar(data: Date){
+    private formatar(data: Date) {
         return new Intl.DateTimeFormat().format(data);
     }
 }
